@@ -143,9 +143,9 @@ class Ui_main_window(object):
         _translate = QtCore.QCoreApplication.translate
         main_window.setWindowTitle(_translate("main_window", "MainWindow"))
         self.SceneButton.setText(_translate("main_window", "场景生成"))
-        self.RoleButton.setText(_translate("main_window", "人物导入"))
+        self.RoleButton.setText(_translate("main_window", "人物生成"))
         self.VitsButton.setText(_translate("main_window", "语音合成"))
-        self.ScriptButton.setText(_translate("main_window", "脚本编辑"))
+        self.ScriptButton.setText(_translate("main_window", "脚本合成"))
 
 
 class Scene_Menu(QWidget, Ui_Scene):

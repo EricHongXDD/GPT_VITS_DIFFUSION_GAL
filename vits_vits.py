@@ -3,13 +3,12 @@ import requests
 import os
 
 def vits(message,people,language,speed,key,sheet,character):
-    url = "http://127.0.0.1:7860"
+    url = "http://isaachong.work:61273"
 
     payload = {
         "data": [message, people, language, int(speed)],
         "event_data": None,
         "fn_index": 0,
-
     }
 
     session = requests.Session()
@@ -18,7 +17,7 @@ def vits(message,people,language,speed,key,sheet,character):
 
     data = json.loads(result.text)
     res = str(data["data"][1]["name"])
-    res = "http://127.0.0.1:7860/file=" + res
+    res = "http://isaachong.work:61273/file=" + res
     # print(res)
 
     # 确保响应状态是200，这意味着请求是成功的
