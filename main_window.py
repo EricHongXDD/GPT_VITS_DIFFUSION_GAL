@@ -19,11 +19,11 @@ from script_window import Ui_Script
 class Ui_main_window(object):
     def setupUi(self, main_window):
         main_window.setObjectName("main_window")
-        main_window.resize(1920, 1080)
+        main_window.resize(2000, 1080)
         self.centralwidget = QtWidgets.QWidget(main_window)
         self.centralwidget.setObjectName("centralwidget")
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
-        self.splitter.setGeometry(QtCore.QRect(10, 0, 1901, 1041))
+        self.splitter.setGeometry(QtCore.QRect(10, 0, 1981, 1041))
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
         self.frame = QtWidgets.QFrame(self.splitter)
@@ -142,10 +142,10 @@ class Ui_main_window(object):
     def retranslateUi(self, main_window):
         _translate = QtCore.QCoreApplication.translate
         main_window.setWindowTitle(_translate("main_window", "MainWindow"))
-        self.SceneButton.setText(_translate("main_window", "场景生成"))
-        self.RoleButton.setText(_translate("main_window", "人物生成"))
-        self.VitsButton.setText(_translate("main_window", "语音合成"))
-        self.ScriptButton.setText(_translate("main_window", "脚本合成"))
+        self.SceneButton.setText(_translate("main_window", "仅场景图生成"))
+        self.RoleButton.setText(_translate("main_window", "场景人物生成"))
+        self.VitsButton.setText(_translate("main_window", "语音合成生成"))
+        self.ScriptButton.setText(_translate("main_window", "脚本合成生成"))
 
 
 class Scene_Menu(QWidget, Ui_Scene):

@@ -52,10 +52,10 @@ import json
 #     img.save(output_file, "PNG")
 
 url = "http://isaachong.work:61272"
-def scene_txt2img(prompt,negative_prompt,scene_filename):
+def role_txt2img(prompt,negative_prompt,scene_filename):
     prompt = prompt + ",masterpiece,best quality,solo,beautiful detailed eyes,delicate face"
     # negative_prompt = negative_prompt + "(worst quality, low quality:1.4), (badhandv4:1.3), negative_hand Negative Embedding,verybadimagenegative_v1.3, monochrome,lowres,fewer digits,blurry,signature,water mark,text,symbol, logo, door frame, window frame, mirror frame"
-    negative_prompt = negative_prompt + "NSFW, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, (ugly:1.331), (duplicate:1.331), (morbid:1.21), (mutilated:1.21), (tranny:1.331), mutated hands, (poorly drawn hands:1.5), blurry, (bad anatomy:1.21), (bad proportions:1.331), extra limbs, (disfigured:1.331), (missing arms:1.331), (extra legs:1.331), (fused fingers:1.61051), (too many fingers:1.61051), (unclear eyes:1.331), lowers, bad hands, missing fingers, extra digit,bad hands, missing fingers, (((extra arms and legs))),nsfw,badhandv4, EasyNegative, verybadimagenegative_v1.3, illustration, 3d, sepia, painting, cartoons, sketch, (worst quality:1.74), (low quality:1.74), (normal quality:1.44), lowres, bad anatomy, normal quality, ((monochrome)), ((grayscale)), ((letters)), ((english)), capital"
+    negative_prompt = negative_prompt + "NSFW, (worst quality:2), (badhandv4:1.3), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, (ugly:1.331), (duplicate:1.331), (morbid:1.21), (mutilated:1.21), (tranny:1.331), mutated hands, (poorly drawn hands:1.5), blurry, (bad anatomy:1.21), (bad proportions:1.331), extra limbs, (disfigured:1.331), (missing arms:1.331), (extra legs:1.331), (fused fingers:1.61051), (too many fingers:1.61051), (unclear eyes:1.331), lowers, bad hands, missing fingers, extra digit,bad hands, missing fingers, (((extra arms and legs))),nsfw,badhandv4, EasyNegative, verybadimagenegative_v1.3, illustration, 3d, sepia, painting, cartoons, sketch, (worst quality:1.74), (low quality:1.74), (normal quality:1.44), lowres, bad anatomy, normal quality, ((monochrome)), ((grayscale)), ((letters)), ((english)), capital"
     payload = {
         "prompt": prompt,
         "negative_prompt": negative_prompt,
@@ -66,18 +66,21 @@ def scene_txt2img(prompt,negative_prompt,scene_filename):
         "sampler_index": "Euler a",
         # 模型选择
         "override_settings": {
-            "sd_model_checkpoint":"anything-v5-PrtRE.safetensors [7f96a1a9ca]"
+            "sd_model_checkpoint":"Everyone.safetensors [ae9e11bc14]"
         },
-        # # 高清修复
-        # "enable_hr": True,
-        # "denoising_strength": 0.45, # 降噪强度
-        #
-        # "hr_scale": 1.25,
-        # "hr_upscaler": "R-ESRGAN 4x+ Anime6B",
-        # "hr_second_pass_steps": 10,
+        # 高清修复
+        "enable_hr": True,
+        "denoising_strength": 0.45, # 降噪强度
+
+        "hr_scale": 2,
+        "hr_upscaler": "R-ESRGAN 4x+ Anime6B",
+        "hr_second_pass_steps": 8,
+        # # 尺寸
+        # "width": 720,
+        # "height": 1152,
         # 尺寸
-        "width": 720,
-        "height": 1152,
+        "width": 640,
+        "height": 360,
         # "alwayson_scripts": {
         #     "ControlNet": {
         #         "args": [
@@ -116,4 +119,4 @@ def scene_txt2img(prompt,negative_prompt,scene_filename):
         print('images/'+scene_filename+'.png保存完成')
         return
 
-scene_txt2img("masterpiece,best quality,1 girl,loli,cute,solo,beautiful detailed eyes,delicate face,sweater,pink hair,side bun,violet eyes,highlight dyeing,blouse,microskirt,black pantyhose,see-through,street,clock tower,depth of field,colored with greyscale background.","","testtt")
+# role_txt2img("masterpiece,best quality,1 girl,loli,cute,solo,beautiful detailed eyes,delicate face,sweater,pink hair,side bun,violet eyes,highlight dyeing,blouse,microskirt,black pantyhose,see-through,street,clock tower,depth of field,colored with greyscale background.","","testtt")
