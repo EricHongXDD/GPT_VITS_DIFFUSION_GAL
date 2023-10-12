@@ -17,6 +17,7 @@ from openpyxl.reader.excel import load_workbook
 from openpyxl.utils import column_index_from_string
 from openpyxl.workbook import Workbook
 from script_preprocess import script_preprocess
+from script_preprocess import script_process
 
 # 脚本生成线程类
 class ScriptThread(QThread):
@@ -27,7 +28,8 @@ class ScriptThread(QThread):
         super(ScriptThread, self).__init__()
         self.solve_script_path = solve_script_path
         self.running = True
-
+        output_filepath = "./scripts"
+        script_process(self.solve_script_path, output_filepath)
     def run(self):
 
         self.string_signal.emit('脚本生成完成')
