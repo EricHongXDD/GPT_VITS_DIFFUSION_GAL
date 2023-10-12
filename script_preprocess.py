@@ -1,6 +1,10 @@
 from openpyxl import load_workbook
 from openpyxl.utils import column_index_from_string
 
+from Excel2RpyScript.handler.converter import Converter
+from Excel2RpyScript.handler.parser import Parser
+from Excel2RpyScript.handler.writer import RpyFileWriter
+
 def script_preprocess(input_filepath, output_filepath):
     # 加载工作簿
     workbook = load_workbook(input_filepath)
@@ -28,7 +32,7 @@ def script_preprocess(input_filepath, output_filepath):
             # 检查A列单元格是否为空
             if cell_a.value:
                 last_non_empty_value = cell_a.value
-                last_non_empty_identifier = f"{sheet.title}_{cell_a.row}"
+                last_non_empty_identifier = f"{sheet.title.lower()}_{cell_a.row}"
 
                 # 根据最近非空的行标识符设置V列的值
                 cell_v.value = last_non_empty_identifier
@@ -45,11 +49,25 @@ def script_preprocess(input_filepath, output_filepath):
             # 这是所有角色的配音放在一起，从1开始编号
             all = "all"
             value_counts[all] = value_counts.get(all, 0) + 1
-            cell_ab.value = f"{sheet.title}_{last_non_empty_value}_{value_counts[all]}"
+            cell_ab.value = f"{sheet.title}_{last_non_empty_value}_{value_counts[all]-1}.wav"
 
     # 保存到新的文件
     workbook.save(output_filepath)
 
+def script_process(input_filepath, output_filepath):
+    # 1. 解析Excel文件
+    file_path = str(input_filepath)
+    parser = Parser(file_path)
+    parsed_sheets = parser.get_parsed_sheets()
+
+    # 2. 将解析的数据转换为Rpy元素
+    converter = Converter(parser)
+    rpy_elements = converter.generate_rpy_elements()
+
+    # 3. 将Rpy元素写入到.rpy文件中
+    output_dir = str(output_filepath)
+    for res in rpy_elements:
+        RpyFileWriter.write_file(output_dir, res, converter.role_name_mapping, converter.side_characters)
 # # 使用函数
 # input_filepath = "工作簿1.xlsx"
 # output_filepath = "your_output_file_path.xlsx"
